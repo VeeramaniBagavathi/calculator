@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  calculator:
+    build: .
+    image: veeramani/calculator:latest
+    container_name: calculator
+    ports:
+      "9090:8080"
+      '9797:8787'
