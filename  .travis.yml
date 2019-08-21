@@ -14,9 +14,10 @@ script: mvn clean install
 
 
 after_success: 
-  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
-  - export IMAGE_NAME = veeramani/calculator
+  - export IMAGE_NAME=veeramani/calculator
+  - echo  image name = $IMAGE_NAME commit = $COMMIT
   - docker build -t $IMAGE_NAME:$COMMIT .
   - docker tag $IMAGE_NAME:$COMMIT $IMAGE_NAME:$TAG
   - docker push $IMAGE_NAME
